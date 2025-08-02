@@ -15,3 +15,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Updated `PushButton` to use `controlSize` instead of the old `buttonSize` property.
 - Fixed incorrect exception class names in the JWT Debugger tool (`JWTExpiredError` -> `JWTExpiredException`, `JWTError` -> `JWTException`) to match the updated `dart_jsonwebtoken` package API.
 - Standardized the `createState` method signature in all screen widgets for better compatibility with modern Flutter versions.
+- Aligned the minimum macOS deployment target to `10.14.6` in both the `Podfile` and the main Xcode project configuration (`project.pbxproj`) to resolve build failures caused by updated plugins.
