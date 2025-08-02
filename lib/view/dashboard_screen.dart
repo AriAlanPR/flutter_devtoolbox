@@ -15,7 +15,7 @@ class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
 
   @override
-  _DashboardScreenState createState() => _DashboardScreenState();
+  State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
@@ -39,10 +39,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
         : Colors.white;
   }
 
-  _launchURL() async {
+  Future<void> _launchURL() async {
     const url = 'https://github.com/nileshtrivedi/devtoolbox/discussions';
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
     } else {
       throw 'Could not launch $url';
     }
@@ -51,10 +51,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return MacosWindow(
-      child: IndexedStack(
-        index: pageIndex,
-        children: pages,
-      ),
       sidebar: Sidebar(
         minWidth: 240,
         bottom: Padding(
@@ -183,6 +179,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ],
           );
         },
+      ),
+      child: IndexedStack(
+        index: pageIndex,
+        children: pages,
       ),
     );
   }

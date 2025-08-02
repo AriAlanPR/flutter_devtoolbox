@@ -41,7 +41,7 @@ class _JWTDebuggerScreenState extends State<JWTDebuggerScreen> {
     return utf8.decode(base64Url.decode(output));
   }
 
-  void parseJWT(token) {
+  void parseJWT(String token) {
     var parts = token.split(".");
     _headerTextController.text =
         prettyJson(jsonDecode(utf8.decode(base64.decode(parts[0]))), indent: 2);
@@ -50,7 +50,7 @@ class _JWTDebuggerScreenState extends State<JWTDebuggerScreen> {
 
     try {
       // Verify a token
-      final jwt = JWT.verify(token, SecretKey(_signatureTextController.text));
+      JWT.verify(token, SecretKey(_signatureTextController.text));
       sigstatustext = 'Signature verified';
     } on FormatException catch (ex) {
       sigstatustext = ex.message;
