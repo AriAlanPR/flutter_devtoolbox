@@ -63,7 +63,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             title: TextButton(
               style: TextButton.styleFrom(
                 backgroundColor: Colors.grey,
-                primary: Colors.white,
+                foregroundColor: Colors.white,
                 textStyle: const TextStyle(fontSize: 12),
               ),
               onPressed: _launchURL,

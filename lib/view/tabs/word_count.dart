@@ -9,7 +9,7 @@ class WordCountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MacosScaffold(
-      titleBar: const TitleBar(
+      toolBar: const ToolBar(
         centerTitle: true,
         title: Text(
           "Word Count",
@@ -41,7 +41,7 @@ class WordCount extends StatefulWidget {
   const WordCount({Key? key}) : super(key: key);
 
   @override
-  _WordCountState createState() => _WordCountState();
+  State<WordCount> createState() => _WordCountState();
 }
 
 class _WordCountState extends State<WordCount> {
@@ -74,7 +74,7 @@ class _WordCountState extends State<WordCount> {
                 width: 10,
               ),
               PushButton(
-                buttonSize: ButtonSize.small,
+                controlSize: ControlSize.small,
                 child: const Text('Clipboard'),
                 onPressed: () {
                   FlutterClipboard.paste().then((value) {
@@ -86,9 +86,9 @@ class _WordCountState extends State<WordCount> {
                 width: 5,
               ),
               PushButton(
-                buttonSize: ButtonSize.small,
-                child: const Text('Clear'),
+                controlSize: ControlSize.small,
                 onPressed: _inputTextController.clear,
+                child: const Text('Clear'),
               ),
             ],
           ),

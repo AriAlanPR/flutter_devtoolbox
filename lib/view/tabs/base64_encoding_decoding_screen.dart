@@ -10,7 +10,7 @@ class Base64EncodingDecodingScreen extends StatefulWidget {
   const Base64EncodingDecodingScreen({Key? key}) : super(key: key);
 
   @override
-  _Base64EncodingDecodingScreenState createState() =>
+  State<Base64EncodingDecodingScreen> createState() =>
       _Base64EncodingDecodingScreenState();
 }
 
@@ -23,7 +23,7 @@ class _Base64EncodingDecodingScreenState
   @override
   Widget build(BuildContext context) {
     return MacosScaffold(
-      titleBar: const TitleBar(
+      toolBar: const ToolBar(
         centerTitle: true,
         title: Text(
           "Base64 Encoding/Decoding",
@@ -58,7 +58,7 @@ class _Base64EncodingDecodingScreenState
                           width: 10,
                         ),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Clipboard'),
                           onPressed: () {
                             FlutterClipboard.paste().then((value) {
@@ -79,7 +79,7 @@ class _Base64EncodingDecodingScreenState
                           width: 5,
                         ),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Clear'),
                           onPressed: () {
                             _inputTextController.text = "";
@@ -154,7 +154,7 @@ class _Base64EncodingDecodingScreenState
                     Row(
                       children: [
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Copy'),
                           onPressed: () {
                             FlutterClipboard.copy(_outputTextController.text);
@@ -164,7 +164,7 @@ class _Base64EncodingDecodingScreenState
                           width: 5,
                         ),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Use as input'),
                           onPressed: () {
                             String value = _outputTextController.text;

@@ -10,7 +10,7 @@ class YamlToJsonScreen extends StatefulWidget {
   const YamlToJsonScreen({Key? key}) : super(key: key);
 
   @override
-  _YamlToJsonScreenState createState() => _YamlToJsonScreenState();
+  State<YamlToJsonScreen> createState() => _YamlToJsonScreenState();
 }
 
 class _YamlToJsonScreenState extends State<YamlToJsonScreen> {
@@ -20,7 +20,7 @@ class _YamlToJsonScreenState extends State<YamlToJsonScreen> {
   @override
   Widget build(BuildContext context) {
     return MacosScaffold(
-      titleBar: const TitleBar(
+      toolBar: const ToolBar(
         centerTitle: true,
         title: Text(
           "JSON to YAML",
@@ -55,7 +55,7 @@ class _YamlToJsonScreenState extends State<YamlToJsonScreen> {
                           width: 10,
                         ),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Clipboard'),
                           onPressed: () {
                             FlutterClipboard.paste().then((value) {
@@ -69,7 +69,7 @@ class _YamlToJsonScreenState extends State<YamlToJsonScreen> {
                           width: 5,
                         ),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Clear'),
                           onPressed: () {
                             _inputTextController.text = "";
@@ -106,7 +106,7 @@ class _YamlToJsonScreenState extends State<YamlToJsonScreen> {
                     Row(
                       children: [
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Copy'),
                           onPressed: () {
                             FlutterClipboard.copy(_outputTextController.text);

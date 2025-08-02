@@ -10,7 +10,7 @@ class TextToQrCodeScreen extends StatefulWidget {
   const TextToQrCodeScreen({Key? key}) : super(key: key);
 
   @override
-  _TextToQrCodeScreenState createState() => _TextToQrCodeScreenState();
+  State<TextToQrCodeScreen> createState() => _TextToQrCodeScreenState();
 }
 
 class _TextToQrCodeScreenState extends State<TextToQrCodeScreen> {
@@ -20,7 +20,7 @@ class _TextToQrCodeScreenState extends State<TextToQrCodeScreen> {
   @override
   Widget build(BuildContext context) {
     return MacosScaffold(
-      titleBar: const TitleBar(
+      toolBar: const ToolBar(
         centerTitle: true,
         title: Text(
           "JSON to YAML",
@@ -55,7 +55,7 @@ class _TextToQrCodeScreenState extends State<TextToQrCodeScreen> {
                           width: 10,
                         ),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Clipboard'),
                           onPressed: () {
                             FlutterClipboard.paste().then((value) {
@@ -69,7 +69,7 @@ class _TextToQrCodeScreenState extends State<TextToQrCodeScreen> {
                           width: 5,
                         ),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Clear'),
                           onPressed: () {
                             _inputTextController.text = "";
@@ -106,7 +106,7 @@ class _TextToQrCodeScreenState extends State<TextToQrCodeScreen> {
                     Row(
                       children: [
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Copy'),
                           onPressed: () {
                             FlutterClipboard.copy(_outputTextController.text);

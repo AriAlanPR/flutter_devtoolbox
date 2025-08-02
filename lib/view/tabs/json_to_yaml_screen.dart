@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:json2yaml/json2yaml.dart';
 
@@ -10,7 +9,7 @@ class JsonToYamlScreen extends StatefulWidget {
   const JsonToYamlScreen({Key? key}) : super(key: key);
 
   @override
-  _JsonToYamlScreenState createState() => _JsonToYamlScreenState();
+  State<JsonToYamlScreen> createState() => _JsonToYamlScreenState();
 }
 
 class _JsonToYamlScreenState extends State<JsonToYamlScreen> {
@@ -20,7 +19,7 @@ class _JsonToYamlScreenState extends State<JsonToYamlScreen> {
   @override
   Widget build(BuildContext context) {
     return MacosScaffold(
-      titleBar: const TitleBar(
+      toolBar: const ToolBar(
         centerTitle: true,
         title: Text(
           "JSON to YAML",
@@ -55,7 +54,7 @@ class _JsonToYamlScreenState extends State<JsonToYamlScreen> {
                           width: 10,
                         ),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Clipboard'),
                           onPressed: () {
                             FlutterClipboard.paste().then((value) {
@@ -69,7 +68,7 @@ class _JsonToYamlScreenState extends State<JsonToYamlScreen> {
                           width: 5,
                         ),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Clear'),
                           onPressed: () {
                             _inputTextController.text = "";
@@ -106,7 +105,7 @@ class _JsonToYamlScreenState extends State<JsonToYamlScreen> {
                     Row(
                       children: [
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Copy'),
                           onPressed: () {
                             FlutterClipboard.copy(_outputTextController.text);

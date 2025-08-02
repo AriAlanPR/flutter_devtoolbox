@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:clipboard/clipboard.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:pretty_json/pretty_json.dart';
 
@@ -10,127 +9,119 @@ class JsonFormatValidateScreen extends StatefulWidget {
   const JsonFormatValidateScreen({Key? key}) : super(key: key);
 
   @override
-  _JsonFormatValidateScreenState createState() =>
+  State<JsonFormatValidateScreen> createState() =>
       _JsonFormatValidateScreenState();
 }
 
 class _JsonFormatValidateScreenState extends State<JsonFormatValidateScreen> {
-  final TextEditingController _inputTextController = TextEditingController();
-  final TextEditingController _outputTextController = TextEditingController();
+  final _inputTextController = TextEditingController();
+  final _outputTextController = TextEditingController();
+
+  void _formatJson(String value) {
+    if (value.trim().isEmpty) {
+      setState(() {
+        _outputTextController.text = '';
+      });
+      return;
+    }
+    try {
+      final decoded = jsonDecode(value);
+      final prettyString = prettyJson(decoded, indent: 2);
+      setState(() {
+        _outputTextController.text = prettyString;
+      });
+    } catch (e) {
+      setState(() {
+        _outputTextController.text = 'Invalid JSON: ${e.toString()}';
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return MacosScaffold(
-      titleBar: const TitleBar(
-        centerTitle: true,
-        title: Text(
-          "JSON Format / Validate",
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-          ),
+        toolBar: ToolBar(
+          title: const Text('JSON Format / Validate'),
+          titleWidth: 200.0,
         ),
-        decoration: BoxDecoration(
-          border: null,
-        ),
-      ),
-      children: [
-        ContentArea(builder: (context, scrollController) {
-          return SingleChildScrollView(
-            controller: scrollController,
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                //!Input Section
-                //! Header Top Section
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ContentArea(
+            builder: (context, scrollController) {
+              return SingleChildScrollView(
+                controller: scrollController,
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        const Text(
-                          'Input:',
-                          style: TextStyle(fontSize: 14),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
+                        const Text('Input:'),
+                        const SizedBox(width: 10),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Clipboard'),
                           onPressed: () {
                             FlutterClipboard.paste().then((value) {
                               _inputTextController.text = value;
-                              String encoded =
-                                  prettyJson(jsonDecode(value), indent: 2);
-                              _outputTextController.text = encoded;
+                              _formatJson(value);
                             });
                           },
                         ),
-                        const SizedBox(
-                          width: 5,
-                        ),
+                        const SizedBox(width: 5),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Clear'),
                           onPressed: () {
-                            _inputTextController.text = "";
-                            _outputTextController.text = "";
+                            setState(() {
+                              _inputTextController.clear();
+                              _outputTextController.clear();
+                            });
                           },
                         ),
                       ],
                     ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                MacosTextField(
-                  controller: _inputTextController,
-                  onChanged: (value) {
-                    String encoded = prettyJson(jsonDecode(value), indent: 2);
-                    _outputTextController.text = encoded;
-                  },
-                  maxLines: null,
-                  minLines: 15,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                //! Output Section
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Output:',
-                      style: TextStyle(fontSize: 14),
+                    const SizedBox(height: 10),
+                    MacosTextField(
+                      controller: _inputTextController,
+                      onChanged: _formatJson,
+                      maxLines: 15,
+                      minLines: 10,
                     ),
+                    const SizedBox(height: 20),
                     Row(
                       children: [
+                        const Text('Output:'),
+                        const SizedBox(width: 10),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Copy'),
                           onPressed: () {
-                            FlutterClipboard.copy(_outputTextController.text);
+                            if (_outputTextController.text.isNotEmpty) {
+                              FlutterClipboard.copy(_outputTextController.text);
+                            }
                           },
                         ),
                       ],
-                    )
+                    ),
+                    const SizedBox(height: 10),
+                    MacosTextField(
+                      controller: _outputTextController,
+                      maxLines: 15,
+                      minLines: 10,
+                      readOnly: true,
+                    ),
                   ],
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                MacosTextField(
-                  controller: _outputTextController,
-                  maxLines: null,
-                  minLines: 15,
-                )
-              ],
-            ),
-          );
-        }),
-      ],
-    );
+              );
+            },
+          ),
+        ]);
+  }
+
+  @override
+  void dispose() {
+    _inputTextController.dispose();
+    _outputTextController.dispose();
+    super.dispose();
   }
 }

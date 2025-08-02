@@ -10,7 +10,7 @@ class JWTDebuggerScreen extends StatefulWidget {
   const JWTDebuggerScreen({Key? key}) : super(key: key);
 
   @override
-  _JWTDebuggerScreenState createState() => _JWTDebuggerScreenState();
+  State<JWTDebuggerScreen> createState() => _JWTDebuggerScreenState();
 }
 
 class _JWTDebuggerScreenState extends State<JWTDebuggerScreen> {
@@ -54,9 +54,9 @@ class _JWTDebuggerScreenState extends State<JWTDebuggerScreen> {
       sigstatustext = 'Signature verified';
     } on FormatException catch (ex) {
       sigstatustext = ex.message;
-    } on JWTExpiredError {
+    } on JWTExpiredException {
       sigstatustext = 'Signature expired';
-    } on JWTError catch (ex) {
+    } on JWTException catch (ex) {
       sigstatustext = ex.message;
     }
     setState(() {});
@@ -65,7 +65,7 @@ class _JWTDebuggerScreenState extends State<JWTDebuggerScreen> {
   @override
   Widget build(BuildContext context) {
     return MacosScaffold(
-      titleBar: const TitleBar(
+      toolBar: const ToolBar(
         centerTitle: true,
         title: Text(
           "JWT Debugger",
@@ -100,7 +100,7 @@ class _JWTDebuggerScreenState extends State<JWTDebuggerScreen> {
                           width: 10,
                         ),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Clipboard'),
                           onPressed: () {
                             FlutterClipboard.paste().then((value) {
@@ -113,7 +113,7 @@ class _JWTDebuggerScreenState extends State<JWTDebuggerScreen> {
                           width: 5,
                         ),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Example'),
                           onPressed: () {
                             _inputTextController.text =
@@ -125,7 +125,7 @@ class _JWTDebuggerScreenState extends State<JWTDebuggerScreen> {
                           width: 5,
                         ),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Clear'),
                           onPressed: () {
                             _inputTextController.text = "";

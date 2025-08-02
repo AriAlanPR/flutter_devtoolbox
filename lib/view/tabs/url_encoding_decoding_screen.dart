@@ -8,7 +8,7 @@ class UrlEncodingDecodingScreen extends StatefulWidget {
   const UrlEncodingDecodingScreen({Key? key}) : super(key: key);
 
   @override
-  _UrlEncodingDecodingScreenState createState() =>
+  State<UrlEncodingDecodingScreen> createState() =>
       _UrlEncodingDecodingScreenState();
 }
 
@@ -21,7 +21,7 @@ class _UrlEncodingDecodingScreenState
   @override
   Widget build(BuildContext context) {
     return MacosScaffold(
-      titleBar: const TitleBar(
+      toolBar: const ToolBar(
         centerTitle: true,
         title: Text(
           "Url Encoding/Decoding",
@@ -56,7 +56,7 @@ class _UrlEncodingDecodingScreenState
                           width: 10,
                         ),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Clipboard'),
                           onPressed: () {
                             FlutterClipboard.paste().then((value) {
@@ -77,7 +77,7 @@ class _UrlEncodingDecodingScreenState
                           width: 5,
                         ),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Clear'),
                           onPressed: () {
                             _inputTextController.text = "";
@@ -151,7 +151,7 @@ class _UrlEncodingDecodingScreenState
                     Row(
                       children: [
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Copy'),
                           onPressed: () {
                             FlutterClipboard.copy(_outputTextController.text);
@@ -161,7 +161,7 @@ class _UrlEncodingDecodingScreenState
                           width: 5,
                         ),
                         PushButton(
-                          buttonSize: ButtonSize.small,
+                          controlSize: ControlSize.small,
                           child: const Text('Use as input'),
                           onPressed: () {
                             String value = _outputTextController.text;
